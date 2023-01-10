@@ -8,15 +8,15 @@ class Ai:
     def __init__(self, cols, rows):
         self.cols = cols
         self.rows = rows
-        self.opponentNum = None
-        self.aiNum = None
         self.fields =[[0] * cols for _ in range(rows)]
-
+    
+    #AI plays first
     def firstMove(self):
         x, y = self.cols//2, self.rows//2
         self.fields[y][x] = 1
         return x, y
-
+    
+    #AIs move
     def aiMove(self):
         fields = deepcopy(self.fields)
         possible_fields = self.possible_moves(fields)
@@ -130,7 +130,7 @@ class Ai:
 
 
         return "wrong"
-
+    #Check for 4 in a row
     def check_for_win(self, fields, player):
 
         for x in range(self.cols):
@@ -159,7 +159,8 @@ class Ai:
                         return True
                 except:
                     pass
-
+    
+    #Check for 3 in a row
     def check_for_3(self, fields, player):
         for x in range(self.cols):
             for y in range(self.rows):
@@ -195,7 +196,8 @@ class Ai:
                         return True
                 except:
                     pass
-
+    
+    #Check for 2 in a row
     def check_for_2(self, fields, player):
         for x in range(self.cols):
             for y in range(self.rows):
@@ -237,7 +239,8 @@ class Ai:
                         return True
                 except:
                     pass
-
+    
+    #Check for 1 with possibility to play 2, 3 and 4
     def check_for_1(self, fields, player):
         for x in range(self.cols):
             for y in range(self.rows):
@@ -283,7 +286,7 @@ class Ai:
                         return True
                 except:
                     pass
-
+    #Check for all possible moves
     def possible_moves(self, fields):
         possible_fields = []
         for x in range(self.cols):
@@ -291,7 +294,8 @@ class Ai:
                 if fields[y][x] == 0:
                     possible_fields.append([x,y])
         return possible_fields
-
+    
+    #Validate and process players input
     def process_input(self, inp):
         numbers = re.findall(r'\d+', inp)
         try:
@@ -305,7 +309,8 @@ class Ai:
         else:
             self.fields[y][x] = OPPONENT
             return self.aiMove()
-
+        
+    #Validate inputs
     def check_inputs(self, x, y):
         if x < 0 or x > self.cols or y < 0 or y > self.rows:
             return False
@@ -320,8 +325,8 @@ def main():
     parser.add_argument('cols', type=int, help='field size in X')
     parser.add_argument('rows', type=int, help='field size')
     args = parser.parse_args()
-    cols=args.cols
-    rows=args.rows
+#     cols=args.cols
+#     rows=args.rows
     # cols = 10
     # rows = 10
     ai = Ai(cols, rows)
