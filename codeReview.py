@@ -1,5 +1,5 @@
 """
-This code serves a purpose to simplify given code.
+This program serves a purpose of simplifing given code.
 """
 import sys
 
